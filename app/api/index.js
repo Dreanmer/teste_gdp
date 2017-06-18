@@ -1,7 +1,7 @@
-exports.register = (plugin, options, next) => {
+exports.register = (server, options, next) => {
 
-    plugin.route([
-        {method: 'GET', path: '/', config: require('./handlers/index')}
+    server.route([
+        { method: 'GET', path: '/', config: require('./handlers/index') }
     ]);
 
     next();
