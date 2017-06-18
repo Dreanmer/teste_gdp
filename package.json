@@ -1,5 +1,5 @@
 {
-  "name": "test_gdp",
+  "name": "gdp_test",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hapi": "^16.4.3"
+    "glue": "^4.1.0",
+    "hapi": "^16.4.3",
+    "hapi-swaggered": "^2.9.0",
+    "hapi-swaggered-ui": "^2.6.0"
   },
   "devDependencies": {
     "lab": "^14.0.1"
