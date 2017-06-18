@@ -1,5 +1,5 @@
 const Glue = require('glue');
-const manifest = require('./manifest.json');
+const manifest = require('./manifest.js');
 
 Glue.compose(manifest, { relativeTo: __dirname + '/app' }, (err, server) => {
     server.start((err) => {
