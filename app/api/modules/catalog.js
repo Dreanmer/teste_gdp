@@ -1,7 +1,9 @@
+const products = require('../data/products.json');
+
 class Catalog {
 
-    constructor(products) {
-        this.products = products;
+    constructor(dataSource) {
+        this.products = dataSource || products;
     }
 
     /**

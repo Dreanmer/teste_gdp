@@ -1,14 +1,12 @@
-const Boom = require('boom');
 const Joi = require('joi');
 const Catalog = require('../modules/catalog');
+const Customer = require('../modules/customer');
 const Checkout = require('../modules/checkout');
-const products = require('../data/products');
-const customers = require('../data/customers');
 
 module.exports = {
     tags: ['api'],
     description: 'checkout route',
-    notes: 'expects a valid customer id and a items list',
+    notes: 'expects a customer id and items list',
     validate: {
         payload: Joi.object().keys({
             customer: Joi.string().required(),
@@ -16,21 +14,23 @@ module.exports = {
         })
     },
     handler: (request, reply) => {
-        const customer = customers.find((customer) => {
-            return customer.name == request.payload.customer;
-        });
+        try {
+            const catalog = new Catalog();
+            const customer = new Customer(request.payload.customer);
+            const checkout = new Checkout(customer, catalog);
 
-        if (!customer)
-            return reply(Boom.badRequest('Inexistent customer'));
+            request.payload.items.forEach((item) => {
+                checkout.add(item);
+            });
 
-        const catalog = new Catalog(products);
-        const checkout = new Checkout(customer, catalog);
+            const total = checkout.total();
+            return reply({ total });
 
-        request.payload.items.forEach((item) => {
-            checkout.add(item);
-        });
+        } catch (e) {
+            if(!e.isBoom)
+                e = Boom.wrap(e, 500);
 
-        const total = checkout.total();
-        return reply({ total });
+            reply(e)
+        }
     }
 };

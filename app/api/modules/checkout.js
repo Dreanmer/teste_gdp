@@ -17,7 +17,7 @@ class Checkout {
         const product = this.catalog.get(id);
 
         if (!product)
-            throw Boom.badData('Invalid product id');
+            throw Boom.notFound('Product not found');
 
         this.items.push(product);
     }
@@ -29,7 +29,7 @@ class Checkout {
      */
     total() {
         let total = 0;
-        const rules = this.customer.rules;
+        const rules = this.customer.getRules();
         let items = this.items;
         items = this._applyDiscountRules(rules, items);
         items.forEach((item) => {
