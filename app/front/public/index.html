@@ -1,1 +1,94 @@
-<h1>hello</h1>
+<div>
+	<h3>Checkout</h3>
+	<label>
+		Customer:<br />
+		<select name="customers"></select>
+	</label>
+	<br />
+	<br />
+	<label>
+		Product to add:<br />
+		<select name="products"></select>
+	</label>
+	<button class="add">+</button>
+	<br />
+	<br />
+	<label>
+		Selected list:<br />
+		<select multiple disabled name="items"></select>
+	</label>
+	<br />
+	<br />
+	<button class="total">Get Total</button>
+</div>
+<div>
+	<br />
+	<span class="sumary"></span>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	$(function () {
+		var $customers = $('[name=customers]'),
+				$products = $('[name=products]'),
+				$items = $('[name=items]'),
+				$add = $('.add'),
+				$total = $('.total'),
+				$sumary = $('.sumary');
+
+		$.getJSON('/api/customers', function (customers) {
+			$.each(customers, function (key, customer) {
+				$customers.append($('<option>', {
+					value: customer.name,
+					text: customer.name
+				}));
+			});
+		});
+
+		$.getJSON('/api/products', function (products) {
+			$.each(products, function (key, product) {
+				$products.append($('<option>', {
+					value: product.id,
+					text: product.name
+				}));
+			});
+		});
+
+		$add.on('click', function () {
+			var $product = $products.find(":selected");
+			$items.append($('<option>', {
+				value: $product.val(),
+				text: $product.text(),
+				selected: true
+			}));
+		});
+
+		$total.on('click', function () {
+			var $customer = $customers.find(":selected");
+
+			var data = JSON.stringify({
+				customer: $customer.val(),
+				items: $items.val()
+			});
+
+			$.ajax({
+				url: '/api/checkout',
+				type: "POST",
+				data: data,
+				dataType: "json",
+				contentType: "application/json",
+				success: function (data) {
+					$sumary.html('customer: <i>' + $customer.val() + '</i><br/><br/>');
+					$.each($items.val(), function (i, item) {
+						$sumary.append('<i>+ ' + item + '</i><br/>');
+					});
+					$items.html('');
+					$sumary.append('------------------- <br/> total: $' + data.total);
+				}
+			});
+		})
+	});
+</script>

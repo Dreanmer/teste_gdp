@@ -1,4 +1,4 @@
-module.exports = {
+module.exports.index = {
     tags: ['api'],
     description: 'health check route',
     handler: (request, reply) => {

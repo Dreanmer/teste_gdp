@@ -3,7 +3,7 @@ const Catalog = require('../modules/catalog');
 const Customer = require('../modules/customer');
 const Checkout = require('../modules/checkout');
 
-module.exports = {
+module.exports.checkout = {
     tags: ['api'],
     description: 'checkout route',
     notes: 'expects a customer id and items list',
