@@ -30,17 +30,9 @@ class Checkout {
     total() {
         let total = 0;
         const rules = this.customer.rules;
-
-        if (rules && rules.length > 0)
-            rules.forEach((rule) => {
-                try {
-                    this.items = this['_' + rule.type](rule.parameters, this.items);
-                } catch (e) {
-                    throw Boom.wrap(e, 500);
-                }
-            });
-
-        this.items.forEach((item) => {
+        let items = this.items;
+        items = this._applyDiscountRules(rules, items);
+        items.forEach((item) => {
             total += item.price;
         });
 
@@ -48,6 +40,27 @@ class Checkout {
     }
 
     /**
+     * Applies the discount rules and return an updated list of items
+     *
+     * @returns items
+     * @private
+     */
+    _applyDiscountRules(rules, items) {
+        if (rules && rules.length > 0)
+            rules.forEach((rule) => {
+                try {
+                    items = this['_' + rule.type](rule.parameters, items);
+                } catch (e) {
+                    throw Boom.wrap(e, 500);
+                }
+            });
+
+        return items
+    }
+
+    /**
+     * Discount Rule
+     *
      * expected 'params':
      *   {
      *     "applies": "classic",
@@ -76,6 +89,8 @@ class Checkout {
     }
 
     /**
+     * Discount Rule
+     *
      * expected 'params':
      *   {
      *     "applies": "standout",
@@ -91,15 +106,16 @@ class Checkout {
     _priceDrops(params, items) {
         let i = 0;
         const applyDiscount = items.some((item) => {
-            if(item.id == params.applies)
+            if (item.id == params.applies)
                 i++;
             return i >= params.min;
         });
 
-        if(applyDiscount)
+        if (applyDiscount)
             return items.map((item) => {
-                if (item.id == params.applies)
+                if (item.id == params.applies) {
                     item.price = params.newPrice;
+                }
                 return item;
             });
 
