@@ -1,0 +1,74 @@
+[
+  {
+    "name": "default",
+    "rules": []
+  },
+  {
+    "name": "Unilever",
+    "rules": [
+      {
+        "type": "buyXgetY",
+        "parameters": {
+          "applies": "classic",
+          "buyAmount": 3,
+          "payAmount": 2
+        }
+      }
+    ]
+  },
+  {
+    "name": "Apple",
+    "rules": [
+      {
+        "type": "priceDrops",
+        "parameters": {
+          "applies": "standout",
+          "min": 1,
+          "newPrice": 299.99
+        }
+      }
+    ]
+  },
+  {
+    "name": "Nike",
+    "rules": [
+      {
+        "type": "priceDrops",
+        "parameters": {
+          "applies": "premium",
+          "min": 4,
+          "newPrice": 379.99
+        }
+      }
+    ]
+  },
+  {
+    "name": "ford",
+    "rules": [
+      {
+        "type": "buyXgetY",
+        "parameters": {
+          "applies": "classic",
+          "buyAmount": 5,
+          "payAmount": 4
+        }
+      },
+      {
+        "type": "priceDrops",
+        "parameters": {
+          "applies": "standout",
+          "min": 1,
+          "newPrice": 309.99
+        }
+      },
+      {
+        "type": "priceDrops",
+        "parameters": {
+          "applies": "premium",
+          "min": 3,
+          "newPrice": 389.99
+        }
+      }
+    ]
+  }
+]

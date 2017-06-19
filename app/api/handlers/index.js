@@ -1,9 +1,11 @@
 module.exports = {
     tags: ['api'],
-    validate: {},
+    description: 'health check route',
     handler: (request, reply) => {
         return reply({
-            result: 'Hello hapi!'
+            api: {
+                status: 'online'
+            }
         });
     }
 };

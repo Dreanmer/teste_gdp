@@ -13,7 +13,9 @@
     "glue": "^4.1.0",
     "hapi": "^16.4.3",
     "hapi-swaggered": "^2.9.0",
-    "hapi-swaggered-ui": "^2.6.0"
+    "hapi-swaggered-ui": "^2.6.0",
+    "boom": "latest",
+    "joi": "latest",
   },
   "devDependencies": {
     "lab": "^14.0.1"
