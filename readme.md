@@ -1,6 +1,7 @@
 ###GDP test
 
 This project structure was made specific for this test.
+The test proposal can be found [here](https://github.com/Dreanmer/teste_gdp/blob/master/GDP_SoftwareEngineer_Test.pdf).
 
 ###set-up
 
