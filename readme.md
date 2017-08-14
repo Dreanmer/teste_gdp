@@ -1,9 +1,9 @@
-###GDP test
+### GDP test
 
 This project structure was made specific for this test.
 The test proposal can be found [here](https://github.com/Dreanmer/teste_gdp/blob/master/GDP_SoftwareEngineer_Test.pdf).
 
-###set-up
+### set-up
 
 dependencias:
 - docker 
@@ -24,7 +24,7 @@ run tests:
 docker-compose run server npm run test
 ```
 
-###usage
+### usage
 
 You can take a look at the swagger documentation at `http://localhost:3000/docs` also 
 I've made a simple ui to consume the api `http://localhost:3000/`;
